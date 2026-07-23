@@ -1,0 +1,10 @@
+# Secrets & personal data — never commit these
+.env
+.tokens.json
+
+# Exported song data (personal)
+data/
+*.local.json
+
+node_modules/
+.DS_Store

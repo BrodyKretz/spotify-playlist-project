@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Playlist Project</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #121212;
+      color: #fff;
+    }
+    .card {
+      text-align: center;
+      padding: 2.5rem 3rem;
+    }
+    h1 { font-weight: 600; margin-bottom: 0.25rem; }
+    .sub { color: #b3b3b3; margin-top: 0; margin-bottom: 2rem; }
+    button, a.btn {
+      display: inline-block;
+      background: #1db954;
+      color: #000;
+      border: none;
+      border-radius: 500px;
+      padding: 0.85rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    a.logout { color: #b3b3b3; font-size: 0.85rem; display: block; margin-top: 1.5rem; }
+    .status { font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Spotify Playlist Project</h1>
+    <p class="sub">Organize your liked songs into smarter playlists.</p>
+    <div id="content"><p>Checking login…</p></div>
+  </div>
+
+  <script>
+    async function render() {
+      const content = document.getElementById("content");
+      try {
+        const res = await fetch("/api/me");
+        const data = await res.json();
+        if (data.loggedIn) {
+          content.innerHTML = `
+            <p class="status">Logged in as <strong>${data.displayName || data.id}</strong></p>
+            <a class="logout" href="/logout">Log out</a>`;
+        } else {
+          content.innerHTML = `<a class="btn" href="/login">Log in with Spotify</a>`;
+        }
+      } catch (e) {
+        content.innerHTML = `<p class="status">Error: ${e.message}</p>`;
+      }
+    }
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "spotify-playlist-project",
+  "version": "0.1.0",
+  "description": "Organize Spotify liked songs into smarter playlists.",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  }
+}
